@@ -1,0 +1,50 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: rgb(224, 255, 243);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+}
+
+.registration-form {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  border: 1px solid #333;
+  border-color: darkgreen;
+  background-color: rgb(224, 255, 243);
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 2px solid #aaa;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  background-color: rgb(172, 202, 172);
+  color: green;
+  padding: 10px 15px;
+  border: 2px solid #aaa;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: green;
+  color: white;
+}
+
+.registration-form input:hover {
+  border-color: green;
+}
+
+#message {
+  text-align: center;
+}

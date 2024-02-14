@@ -1,11 +1,9 @@
 from experience import Experience
 from education import Education
 from application import Application
-from recruiter import Recruiter
 
 class Job:
   def __init__(self, 
-               recruiter: Recruiter,
                description: str, 
                required_skills: list[str],
                required_experiences: list[Experience], 
@@ -13,7 +11,6 @@ class Job:
                salary_lower_bound: int,
                salary_upper_bound: int,
                applications: list[Application]) -> None:
-    self.recruiter = recruiter
     self.description = description
     self.required_skills = required_skills
     self.required_experiences = required_experiences
