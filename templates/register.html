@@ -7,8 +7,14 @@
 {% block content %}
     <div class="container">
       <form class="registration-form" action="/register" method="POST">
-          <input type="text" name="username" placeholder="username">
-          <input type="password" name="password" placeholder="password">
+          <input type="text" name="name" placeholder="Name">
+          <input type="text" name="username" placeholder="Username">
+          <input type="password" name="password" placeholder="Password">
+          <select name="user_type">
+            <option value="" disabled selected hidden>Select user type</option>
+            <option value="recruiter">Recruiter</option>
+            <option value="applicant">Applicant</option>
+          </select>
           <button type="submit">Register</button>
       </form>
     </div>

@@ -16,9 +16,12 @@
     <nav>
       <a class="nav-active" href="/">Home</a>
       <!-- Reverse order from here: -->
-      <a class="nav-right nav-not-logged" href="/login">Log In</a>
-      <a class="nav-right nav-not-logged" href="/register">Register</a>
-      <a class="nav-right nav-logged" id="nav-logout">Log out</a>
+      {% if user %}
+        <a class="nav-right nav-logged" href="/logout" id="nav-logout">Log out</a>
+      {% else %}  
+        <a class="nav-right nav-not-logged" href="/login">Log In</a>
+        <a class="nav-right nav-not-logged" href="/register">Register</a>
+      {% endif %}
     </nav>
 
     <div id="main-content">

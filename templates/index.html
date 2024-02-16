@@ -2,5 +2,10 @@
 
 {% block content %}
     <h1>This is the home page</h1> 
-    <h2>Hi, {{user}}</h2>
+    {% if user %}
+        <h2>Hi, {{ user.name }}</h2>
+    {% endif %}
+    {% if message %}
+        <h2>{{ message }}</h2>
+    {% endif %}
 {% endblock %}

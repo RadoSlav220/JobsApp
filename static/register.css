@@ -19,7 +19,8 @@ body {
   background-color: rgb(224, 255, 243);
 }
 
-input {
+input,
+select {
   width: 100%;
   padding: 8px;
   margin-bottom: 10px;
@@ -41,7 +42,8 @@ button:hover {
   color: white;
 }
 
-.registration-form input:hover {
+.registration-form input:hover,
+.registration-form select:hover {
   border-color: green;
 }
 
