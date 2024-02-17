@@ -1,10 +1,9 @@
-# JobsApp
-# Project for my Python Course, FMI 2023/2024
+# JobsApp - Project for my Python Course, FMI 2023/2024
 
-# DataBase Scheme
+## DataBase Scheme
 ![DB scheme](db_scheme.png)
 
-# Run the project
+## Run the project
 1. Execute `python3 -m venv venv` to create the virtual environment
 2. Execute `source venv/bin/activate` (Mac OS) `venv\Scripts\activate.bat` (Windows) to activate the virtual environment
 3. Execute `pip install -r requirements.txt` to install the required packages
