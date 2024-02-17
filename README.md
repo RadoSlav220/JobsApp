@@ -8,3 +8,7 @@
 - Fix README.md
 - Add real name attribute to the class User
 - Add role (recruiter/applicant) to the class User
+
+# Functional Requirements
+- Recruiters see only their job ads
+- Delete job deletes applications

@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block styles %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='input_form.css') }}">
 {% endblock %}
 
 {% block content %}
     <div class="container">
-      <form class="registration-form" action="/register" method="POST">
+      <form class="input-form" action="/register" method="POST">
           <input type="text" name="name" placeholder="Name">
           <input type="text" name="username" placeholder="Username">
           <input type="password" name="password" placeholder="Password">

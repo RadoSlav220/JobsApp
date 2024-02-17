@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
 
     {% block styles %}
@@ -15,9 +15,18 @@
 <body>
     <nav>
       <a class="nav-active" href="/">Home</a>
-      <!-- Reverse order from here: -->
+      
+      {% if user %}
+        <a class="nav-active" href="/jobs">Jobs</a>
+      {% endif %}  
+
+      {% if user and user.user_type.value == "recruiter" %}
+        <a class="nav-active" href="/createJobPage">Post new Job</a>
+      {% endif %}
+      
       {% if user %}
         <a class="nav-right nav-logged" href="/logout" id="nav-logout">Log out</a>
+        <span class="nav-right" id="logged-username" >You are logged as: {{ user.name }}</span>
       {% else %}  
         <a class="nav-right nav-not-logged" href="/login">Log In</a>
         <a class="nav-right nav-not-logged" href="/register">Register</a>

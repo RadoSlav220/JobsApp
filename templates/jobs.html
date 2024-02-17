@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='table.css') }}">
+{% endblock %}
+
+{% block content %}
+    {% if user and jobs %}
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Company name</th>
+                <th>Salary</th>
+                <th>Actions</th>
+            </tr>
+            {% for job in jobs %}
+                <tr>
+                    <td>{{ job.title }}</td>
+                    <td>{{ job.company_name }}</td>
+                    <td>{{ job.salary_lower_bound }} - {{ job.salary_upper_bound }}</td>
+                    <td>
+                        <form action="/jobs/{{ job.id }}", method="GET">
+                          <button type="submit">View</button>
+                        </form>
+
+                        {% if user.user_type.value == "recruiter" %}
+                          <form action="/delete_job/{{ job.id }}", method="POST">
+                            <button type="submit">Delete</button>
+                          </form>
+                        {% elif user.user_type.value == "applicant" %}
+                          <form action="/apply/{{ job.id }}", method="POST">
+                            <button type="submit">Apply</button>
+                          </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if message %}
+        <h2>{{ message }}</h2>
+    {% endif %}
+{% endblock %}

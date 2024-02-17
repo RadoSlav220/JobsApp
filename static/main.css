@@ -12,3 +12,14 @@ h1 {
   color: black;
 }
 
+body {
+  font-family: Arial, sans-serif;
+  background-color: rgb(224, 255, 243);
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+

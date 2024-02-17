@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='input_form.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+      <form class="input-form" action="/jobs" method="POST">
+          <input type="text" name="title" placeholder="Title">
+          <input type="text" name="company_name" placeholder="Company Name">
+          <input type="number" name="salary_lower_bound" inputmode="numeric" placeholder="Salary lower bound">
+          <input type="number" name="salary_upper_bound" inputmode="numeric" placeholder="Salary upper bound">
+          <input type="text" name="description" placeholder="Job description">
+          <button type="submit">Post Job</button>
+      </form>
+    </div>
+    
+    {% if message %}
+      <h2 id="message">{{ message }}</h2>
+    {% endif %}
+{% endblock %}
+

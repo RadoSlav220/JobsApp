@@ -35,3 +35,8 @@ nav > .nav-right {
 nav > *:hover {
   background-color: #8C6866;
 }
+
+#logged-username {
+  background-color: #EBAAA8;
+  pointer-events: none;
+}

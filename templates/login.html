@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='input_form.css') }}">
+{% endblock %}
+
 {% block content %}
-    <h1>This is the login page</h1>
-    <form action="/login" method="POST">
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-        <input type="submit" value="Login">
-    </form>
+    <div class="container">
+        <form class="input-form" action="/login" method="POST">
+            <input type="text" name="username" placeholder="Username">
+            <input type="password" name="password" placeholder="Password">
+            <button type="submit">Login</button>
+        </form>
+  </div>
 
     {% if message %}
         <h2>{{ message }}</h2>

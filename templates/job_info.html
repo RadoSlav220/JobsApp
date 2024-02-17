@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='table.css') }}">
+{% endblock %}
+
+{% block content %}
+    {% if user and job %}
+        <h1>Title: {{ job.title }}</h1>
+        <h1>Company name: {{ job.company_name }}</h1>
+        <h1>Recruiter name: {{ job.recruiter_name }}</h1>
+        <h1>Salary: {{ job.salary_lower_bound }} - {{ job.salary_upper_bound }}</h1>
+        <h1>Description: {{ job.description }}</h1>
+    {% endif %}
+
+    {% if applications and applications is not none%}
+        <table>
+          <tr>
+            <th>Applicant Name</th>
+          </tr>
+          {% for application in applications %}
+            <tr>
+              <td>{{ application.name }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if message %}
+        <h2>{{ message }}</h2>
+    {% endif %}
+{% endblock %}
