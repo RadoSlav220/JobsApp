@@ -73,15 +73,16 @@ def register_user(request: Request):
     requestName = request.form.get('name')
     requestUsername = request.form.get('username')
     requestPassword = request.form.get('password')
+    requestEmail = request.form.get('email')
     requestUserType = request.form.get('user_type')
 
-    validate_user_elements(requestName, requestUsername, requestPassword, requestUserType)
+    validate_user_elements(requestName, requestUsername, requestPassword, requestEmail, requestUserType)
 
     if is_user_registered(requestUsername):
         raise ValueError("Username is already taken")
 
-    new_user = User(name=requestName, username=requestUsername, 
-                    password=consistent_hash(requestPassword), user_type=UserType(requestUserType))
+    new_user = User(name=requestName, username=requestUsername, password=consistent_hash(requestPassword), 
+                    email=requestEmail, user_type=UserType(requestUserType))
     db.session.add(new_user)
     db.session.commit()
 
@@ -163,8 +164,8 @@ def postJob(user: User, request: Request) -> Job:
 
     validate_job_elements(job_title, job_company_name, job_desription, job_salary_lower, job_salary_upper)
 
-    new_job = Job(title=job_title, company_name=job_company_name, recruiter_id=user.id, recruiter_name=user.name,
-                  description=job_desription, salary_lower_bound=job_salary_lower, salary_upper_bound=job_salary_upper)
+    new_job = Job(title=job_title, company_name=job_company_name, recruiter_id=user.id, description=job_desription, 
+                  salary_lower_bound=job_salary_lower, salary_upper_bound=job_salary_upper)
     db.session.add(new_job)
     db.session.commit()
     return new_job
@@ -178,9 +179,9 @@ def get_jobs(user: User) -> list[Job]:
     return jobs
 
 
-# TODO add required checks
 def delete_job_by_id(job_id):
     job = Job.query.get_or_404(job_id)
+    Application.query.filter_by(job_id=job_id).delete()
     db.session.delete(job)
     db.session.commit()
 
@@ -188,11 +189,13 @@ def delete_job_by_id(job_id):
 def display_job_for_user(user: User, job_id) -> Response:
     job = Job.query.get_or_404(job_id)
     if user.user_type == UserType.APPLICANT:
-        return make_response(render_template('job_info.html', title='Job Details', user=user, job=job))
+        recruiter_data = db.session.query(User.name, User.email).join(Job, Job.recruiter_id==User.id)\
+                                    .filter_by(recruiter_id=job_id).first()
+        return make_response(render_template('job_info.html', title='Job Details', user=user, job=job, recruiter_data=recruiter_data))
     elif user.user_type == UserType.RECRUITER:
-        applications = db.session.query(User.name).join(Application, Application.applicant_id==User.id)\
-        .join(Job, Job.id==Application.job_id)\
-        .filter_by(recruiter_id=user.id, id=job_id).all()
+        applications = db.session.query(User.name, User.email).join(Application, Application.applicant_id==User.id)\
+                                    .join(Job, Job.id==Application.job_id)\
+                                    .filter_by(recruiter_id=user.id, id=job_id).all()
         return make_response(render_template('job_info.html', title='Job Details', user=user, job=job, applications=applications))
 
 
@@ -212,7 +215,7 @@ def read_data():
     result = ''
     
     for user in users:
-        result += f'<h3>{user.id} {user.name} {user.username} {user.password} {user.user_type}</h3>'
+        result += f'<h3>{user.id} {user.name} {user.username} {user.password} {user.email} {user.user_type}</h3>'
     
     result += '<br>'
     jobs = Job.query.all()
@@ -224,7 +227,6 @@ def read_data():
     for application in applications:
         result += f'<h3>{application.id} {application.applicant_id} {application.job_id}</h3>'
   
-
     return result
 
 

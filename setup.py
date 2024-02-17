@@ -13,6 +13,7 @@ class User(db.Model):
     name = db.Column(db.String(USER_NAME_MAXIMUM_LENGTH), unique=False, nullable=False)
     username = db.Column(db.String(USER_USERNAME_MAXIMUM_LENGTH), unique=True, nullable=False)
     password = db.Column(db.String(USER_PASSWORD_MAXIMUM_LENGTH), unique=False, nullable=False)
+    email = db.Column(db.String(USER_EMAIL_MAXIMUM_LENGTH), unique=True, nullable=False)
     user_type = db.Column(db.Enum(UserType), unique=False, nullable=False)
 
 class Job(db.Model):
@@ -20,7 +21,6 @@ class Job(db.Model):
     title = db.Column(db.String(JOB_TITLE_MAXIMUM_LENGTH), unique=False, nullable=False)
     company_name = db.Column(db.String(JOB_COMPANY_NAME_MAXIMUM_LENGTH), unique=False, nullable=False)
     recruiter_id = db.Column(db.Integer, unique=False, nullable=False)
-    recruiter_name = db.Column(db.String(JOB_RECRUITER_NAME_MAXIMUM_LENGTH), unique=False, nullable=False)
     description = db.Column(db.String(JOB_DESCRIPTION_MAXIMUM_LENGTH), unique=False, nullable=False)
     salary_lower_bound = db.Column(db.Integer, unique=False, nullable=False)
     salary_upper_bound = db.Column(db.Integer, unique=False, nullable=False)

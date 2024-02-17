@@ -2,6 +2,9 @@
 # Install modules from requirements.txt
 # Run it
 
+# DataBase Scheme
+![DB scheme](db_scheme.jpg)
+
 # TODO
 - Make all string messages constants and take them in a separate file
 - Make logout

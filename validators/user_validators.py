@@ -1,10 +1,13 @@
+import re
 from config import *
 
+EMAIL_PATTERN = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
 
-def validate_user_elements(name: str, username: str, password: str, user_type: str) -> None:
+def validate_user_elements(name: str, username: str, password: str, email:str, user_type: str) -> None:
     validate_name(name)
     validate_username(username)
     validate_password(password)
+    validate_email(email)
     validate_user_type(user_type)
 
 
@@ -33,6 +36,17 @@ def validate_password(password: str) -> None:
     
     if len(password) > USER_PASSWORD_MAXIMUM_LENGTH:
         raise ValueError('Password is too long')
+
+
+def validate_email(email: str) -> None:
+    if email is None or email == '':
+        raise ValueError('Missing password')
+
+    if len(email) > USER_EMAIL_MAXIMUM_LENGTH:
+        raise ValueError('Email is too long')
+    
+    if not re.match(EMAIL_PATTERN, email):
+        raise ValueError('Invalid email address')
 
 
 def validate_user_type(user_type: str) -> None:

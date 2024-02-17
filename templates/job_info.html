@@ -8,19 +8,25 @@
     {% if user and job %}
         <h1>Title: {{ job.title }}</h1>
         <h1>Company name: {{ job.company_name }}</h1>
-        <h1>Recruiter name: {{ job.recruiter_name }}</h1>
+        {% if user.user_type.value == "applicant" and recruiter_data %}
+          <h1>Recruiter name: {{ recruiter_data.name }}</h1>
+          <h1>Recruiter email: {{ recruiter_data.email }}</h1>
+        {% endif %}
         <h1>Salary: {{ job.salary_lower_bound }} - {{ job.salary_upper_bound }}</h1>
         <h1>Description: {{ job.description }}</h1>
     {% endif %}
 
-    {% if applications and applications is not none%}
+    {% if applications and applications is not none and applications|length > 0 %}
+        <h2 style="text-align: center;">Applications</h2>
         <table>
           <tr>
             <th>Applicant Name</th>
+            <th>Applicant email</th>
           </tr>
           {% for application in applications %}
             <tr>
               <td>{{ application.name }}</td>
+              <td>{{ application.email }}</td>
             </tr>
           {% endfor %}
         </table>
